@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ActivityLifecycle</string>
+    <string name="placeholder">Enter a message</string>
+    <string name="fred">Submit Entry</string>
+</resources>
