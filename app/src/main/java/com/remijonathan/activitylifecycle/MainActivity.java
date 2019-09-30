@@ -1,5 +1,6 @@
 package com.remijonathan.activitylifecycle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -14,6 +15,19 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private EditText enteredText;
     private Button submitButton;
+    private final int REQUEST_CODE = 2;
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            assert data != null;
+            String message = data.getStringExtra("message back");
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+        }
+//        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, DisplayMessage.class);
                 intent.putExtra("Message", enteredText.getText().toString());
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -42,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         Toast.makeText(MainActivity.this, "onStart()", Toast.LENGTH_SHORT).show();
-        Log.d("Life","onStart: called");
+        Log.d("Life", "onStart: called");
     }
 
     @Override
@@ -50,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPostResume();
 
         Toast.makeText(MainActivity.this, "onPostResume()", Toast.LENGTH_SHORT).show();
-        Log.d("Life","onPostResume: called");
+        Log.d("Life", "onPostResume: called");
     }
 
     @Override
@@ -58,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
 
         Toast.makeText(MainActivity.this, "onPause()", Toast.LENGTH_SHORT).show();
-        Log.d("Life","onPause: called");
+        Log.d("Life", "onPause: called");
     }
 
     @Override
@@ -66,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
         Toast.makeText(MainActivity.this, "onStop()", Toast.LENGTH_SHORT).show();
-        Log.d("Life","onStop: called");
+        Log.d("Life", "onStop: called");
     }
 
     @Override
@@ -74,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
 
         Toast.makeText(MainActivity.this, "onRestart()", Toast.LENGTH_SHORT).show();
-        Log.d("Life","onRestart: called");
+        Log.d("Life", "onRestart: called");
     }
 
     @Override
@@ -82,6 +96,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         Toast.makeText(MainActivity.this, "onDestroy()", Toast.LENGTH_SHORT).show();
-        Log.d("Life","onDestroy: called");
+        Log.d("Life", "onDestroy: called");
     }
 }
